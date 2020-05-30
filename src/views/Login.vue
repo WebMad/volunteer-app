@@ -8,14 +8,15 @@
                     </router-link>
                 </div>
                 <div class="login-form">
-                    <form action="" @submit.prevent="login">
+                    <span style="color: red;">{{ this.err_msg }}</span>
+                    <form action="" @submit.prevent="sendLogin">
                         <div class="form-group">
-                            <label>Электронная почта<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="Email">
+                            <label>Логин<span class="text-danger">*</span></label>
+                            <input type="text" v-model="login" class="form-control" placeholder="Логин">
                         </div>
                         <div class="form-group">
                             <label>Пароль<span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" v-model="password" class="form-control" placeholder="Password">
                         </div>
                         <button class="btn btn-success btn-flat m-auto w-100">
                             ВОЙТИ
@@ -34,8 +35,41 @@
 </template>
 
 <script>
+    import {mapMutations} from "vuex";
+
     export default {
-        name: "Login"
+        name: "Login",
+        data() {
+            return {
+                login: "",
+                password: "",
+                err_msg: "",
+            }
+        },
+        methods: {
+            ...mapMutations('auth', [
+                'setToken',
+                'setUser'
+            ]),
+            sendLogin() {
+                this.err_msg = "";
+                this.$http.post('auth/login', {
+                    login: this.login,
+                    password: this.password,
+                }).then(response => {
+                    if (response.data.msg !== "Login failed") {
+                        this.setToken(response.data.token);
+                        this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+                        this.$http.get('auth/user').then(response => {
+                            this.setUser(response.data.data);
+                            this.$router.push('/');
+                        });
+                    } else {
+                        this.err_msg = "Неверный логин или пароль"
+                    }
+                })
+            }
+        }
     }
 </script>
 
@@ -43,6 +77,7 @@
     .container {
 
     }
+
     .login-logo {
         text-align: center;
         font-size: 24px;

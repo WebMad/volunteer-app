@@ -1,10 +1,20 @@
 const auth = {
     namespaced: true,
     state: () => ({
-        user: null,//TODO: изменить на null
+        user: null,
         token: null
     }),
     mutations: {
+        logout(state) {
+            state.token = null;
+            state.user = null;
+        },
+        setToken(state, token) {
+            state.token = token
+        },
+        setUser(state, user) {
+            state.user = user
+        },
     },
     actions: {},
     getters: {

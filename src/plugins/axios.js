@@ -4,8 +4,8 @@ import store from "../store";
 
 axios.defaults.baseURL =
     process.env.NODE_ENV === "production" // если сборка для прода
-        ? "https://backend.citron.webmadness.ru/api/" // url обычный
-        : "https://backend.citron.webmadness.ru/api/"; // иначе ваш локальный/или тестовый (можно менять)
+        ? "https://citron.webmadness.ru/api/" // url обычный
+        : "https://citron.webmadness.ru/api/"; // иначе ваш локальный/или тестовый (можно менять)
 
 
 if (store.getters['auth/isAuth']) {

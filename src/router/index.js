@@ -24,6 +24,15 @@ const routes = [
         component: Register
     },
     {
+        path: '/logout',
+        name: 'Выход',
+        beforeEnter: (to, from, next) => {
+            Vue.prototype.$http.post('auth/logout');
+            store.commit('auth/logout');
+            next('/login')
+        }
+    },
+    {
         path: '*',
         redirect: "/"
     }
