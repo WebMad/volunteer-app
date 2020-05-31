@@ -4,6 +4,11 @@ import Home from '../views/Home.vue'
 import store from '../store'
 import Login from "../views/Login";
 import Register from "../views/Register";
+import MyProfile from "../views/MyProfile";
+import MyQuestionnaire from "../views/MyQuestionnaire";
+import Events from "../views/Events";
+import Event from "../views/Event";
+import CreateEvent from "../views/CreateEvent";
 
 Vue.use(VueRouter);
 
@@ -22,6 +27,32 @@ const routes = [
         path: '/register',
         name: 'Регистрация',
         component: Register
+    },
+    {
+        path: '/profile',
+        name: 'Мой профиль',
+        component: MyProfile
+    },
+    {
+        path: '/questionnaire',
+        name: 'Моя анкета',
+        component: MyQuestionnaire
+    },
+    {
+        path: '/events',
+        name: 'События',
+        component: Events
+    },
+    {
+        path: '/events/create',
+        name: 'Создание события',
+        component: CreateEvent
+    },
+    {
+        path: '/events/:id',
+        props: true,
+        name: 'Событие',
+        component: Event
     },
     {
         path: '/logout',

@@ -1,7 +1,8 @@
 <template>
     <div class="home">
         <b-container>
-            <h2>Добро пожаловать в Volunteer App</h2>
+            <h4>Добро пожаловать в Volunteer App</h4>
+            <img src="../assets/welcome.png" style="width: 100%">
         </b-container>
     </div>
 </template>
